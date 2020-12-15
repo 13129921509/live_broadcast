@@ -1,0 +1,4 @@
+rootProject.name = 'live_broadcast'
+include 'live-anchor'
+include 'live-common'
+
