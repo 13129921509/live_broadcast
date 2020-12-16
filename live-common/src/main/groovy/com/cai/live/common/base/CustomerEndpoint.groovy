@@ -15,23 +15,21 @@ import javax.websocket.server.PathParam
 import javax.websocket.server.ServerEndpointConfig
 import static javax.websocket.server.ServerEndpointConfig.*
 
-abstract class CustomerEndpoint extends Endpoint implements ServerEndpointConfig{
+abstract class CustomerEndpoint implements ServerEndpointConfig{
+
+    CustomerEndpoint(String path) {
+        this.path = path
+    }
+
+    final private Map<String, Object> userProperties = [:]
 
     private static ServerEndpointConfig config
 
+    protected String path
+
     abstract String getPath()
 
-    @OnClose
-    abstract void onClose(Session session, CloseReason closeReason)
-
-    @OnMessage
     abstract void onMessage(String message, Session session)
-
-    @OnError
-    abstract void onError(Session session, Throwable throwable)
-
-    @OnOpen
-    abstract void onOpen(Session session, EndpointConfig config)
 
     Class<?> getEndpointClass() {
         return this.class
@@ -60,6 +58,6 @@ abstract class CustomerEndpoint extends Endpoint implements ServerEndpointConfig
     }
 
     Map<String, Object> getUserProperties() {
-        return [:]
+        return userProperties
     }
 }
