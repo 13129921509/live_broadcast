@@ -14,6 +14,7 @@ class AnchorConfig {
 
     @PostConstruct
     void init(){
-        endpointExporter.addEndPoint(new DefaultWebSocketServer())
+        endpointExporter.addEndPoint(AnchorWebSocketEndpoint.create("/v1/anchor/zwcai","zwcai"))
+        endpointExporter.addEndPoint(AnchorWebSocketEndpoint.create("/v1/anchor/zwcai2","zwcai"))
     }
 }

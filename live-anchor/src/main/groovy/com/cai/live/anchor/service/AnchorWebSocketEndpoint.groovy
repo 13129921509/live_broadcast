@@ -15,14 +15,12 @@ class AnchorWebSocketEndpoint extends CustomerEndpoint{
 
     private SocketCommonInfo socketInfo = new SocketCommonInfo()
 
-    AnchorWebSocketEndpoint(String userId, String path) {
-        super(path)
-        this.userId = userId
-    }
 
-    @Override
-    String getPath() {
-        return path
+    static AnchorWebSocketEndpoint create(String path, String userId){
+        AnchorWebSocketEndpoint endpoint = new AnchorWebSocketEndpoint()
+        endpoint.path = path
+        endpoint.userId = userId
+        return endpoint
     }
 
     @OnClose

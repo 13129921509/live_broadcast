@@ -17,17 +17,12 @@ import static javax.websocket.server.ServerEndpointConfig.*
 
 abstract class CustomerEndpoint implements ServerEndpointConfig{
 
-    CustomerEndpoint(String path) {
-        this.path = path
-    }
 
     final private Map<String, Object> userProperties = [:]
 
     private static ServerEndpointConfig config
 
     protected String path
-
-    abstract String getPath()
 
     abstract void onMessage(String message, Session session)
 
@@ -44,9 +39,7 @@ abstract class CustomerEndpoint implements ServerEndpointConfig{
     }
 
     Configurator getConfigurator() {
-        if (!config)
-            config = Builder.create(this.class, getPath()).configurator().build()
-        return config.configurator
+       return Builder.create(this.class, getPath()).configurator().build().configurator
     }
 
     List<Class<? extends Encoder>> getEncoders() {
@@ -59,5 +52,10 @@ abstract class CustomerEndpoint implements ServerEndpointConfig{
 
     Map<String, Object> getUserProperties() {
         return userProperties
+    }
+
+    @Override
+    String getPath() {
+        return path
     }
 }
