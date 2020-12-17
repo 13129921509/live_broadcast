@@ -18,7 +18,7 @@ import static javax.websocket.server.ServerEndpointConfig.*
 abstract class CustomerEndpoint implements ServerEndpointConfig{
 
 
-    final private Map<String, Object> userProperties = [:]
+    final protected Map<String, Object> userProperties = [:]
 
     private static ServerEndpointConfig config
 
@@ -57,5 +57,10 @@ abstract class CustomerEndpoint implements ServerEndpointConfig{
     @Override
     String getPath() {
         return path
+    }
+
+
+    void addUserProperties(String key, Object val){
+        userProperties.put(key, val)
     }
 }

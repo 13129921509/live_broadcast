@@ -13,20 +13,20 @@ class AnchorWebSocketEndpoint extends CustomerEndpoint{
 
     private String userId
 
-    private SocketCommonInfo socketInfo = new SocketCommonInfo()
-
+    final static String INFO_KEY = "socketInfo"
 
     static AnchorWebSocketEndpoint create(String path, String userId){
         AnchorWebSocketEndpoint endpoint = new AnchorWebSocketEndpoint()
         endpoint.path = path
         endpoint.userId = userId
+        endpoint.addUserProperties(INFO_KEY, new SocketCommonInfo())
         return endpoint
     }
 
     @OnClose
     void onClose(Session session, CloseReason closeReason) {
-        socketInfo.delOneOpen()
-        logger.info("[ 当前连接数 : $socketInfo.openCount ]")
+        getInfo(session).delOneOpen()
+        logger.info("[ 当前连接数 : ${getInfo(session).openCount} ]")
     }
 
 
@@ -44,8 +44,12 @@ class AnchorWebSocketEndpoint extends CustomerEndpoint{
 
     @OnOpen
     void onOpen(Session session, EndpointConfig config) {
-        socketInfo.incrementOneOpen()
-        logger.info("[ 当前连接数 : $socketInfo.openCount ]")
+        getInfo(session).incrementOneOpen()
+        logger.info("[ 当前连接数 : ${getInfo(session).openCount} ]")
+    }
+
+    static SocketCommonInfo getInfo(Session session){
+        return session.userProperties.get(INFO_KEY) as SocketCommonInfo
     }
 
 }
