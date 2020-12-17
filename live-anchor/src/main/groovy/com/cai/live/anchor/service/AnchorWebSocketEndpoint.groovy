@@ -26,7 +26,7 @@ class AnchorWebSocketEndpoint extends CustomerEndpoint{
     @OnClose
     void onClose(Session session, CloseReason closeReason) {
         getInfo(session).delOneOpen()
-        logger.info("[ 当前连接数 : ${getInfo(session).openCount} ]")
+        logger.info("[ 当前路径：${session.requestURI.path} , 当前连接数 : ${getInfo(session).openCount} ]")
     }
 
 
@@ -34,7 +34,8 @@ class AnchorWebSocketEndpoint extends CustomerEndpoint{
     @Override
     @OnMessage
     void onMessage(String message, Session session) throws IOException {
-
+        logger.info("[ 消息：${message} ]")
+        logger.info("[ 当前路径：${session.requestURI.path} , 当前连接数 : ${getInfo(session).openCount} ]")
     }
 
     @OnError
@@ -45,7 +46,7 @@ class AnchorWebSocketEndpoint extends CustomerEndpoint{
     @OnOpen
     void onOpen(Session session, EndpointConfig config) {
         getInfo(session).incrementOneOpen()
-        logger.info("[ 当前连接数 : ${getInfo(session).openCount} ]")
+        logger.info("[ 当前路径：${session.requestURI.path} , 当前连接数 : ${getInfo(session).openCount} ]")
     }
 
     static SocketCommonInfo getInfo(Session session){
