@@ -1,2 +1,82 @@
 server:
   port: 8082
+
+multi-upload:
+  path: C:\\Users\\temp
+
+app:
+  name: live_broadcast
+  error-log:
+    collection: error_log
+    expireDay: 30
+
+login:
+  maxStillState: 3000000 # ms
+  maxReuse: 1
+
+web:
+  accessInterval: 1000 # ms
+  isLoose: true # false
+
+redis:
+  host: 122.51.230.174 #localhost
+  port: 36381
+  password: 123
+  database: 3
+  max-active: 200
+  max-wait: -1
+  max-idle: 8
+  timeout: 0
+  connectionPoolSize: 400
+
+ais.mq:
+  host: localhost # connection host
+  port: 5672 # 5772 # connection port
+  username: guest
+  password: guest
+  concurrency: 10
+  maxConcurrency: 10
+  virtualHost: /api-game-2
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+#  jpa:
+#    hibernate:
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#    open-in-view: true
+#    properties:
+#      hibernate:
+#        enable_lazy_load_no_trans: true
+
+
+datasources:
+  statu: 1
+  instants:
+    instant-1:
+      url: jdbc:mysql://localhost:3306/users?autoReconnect=true&failOverReadOnly=false&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&useOldAliasMetadataBehavior=true
+      username: root
+      password: 123
+      driverClassName: com.mysql.jdbc.Driver
+      initialSize: 5
+      maxActive: 100
+      maxIdle: 10
+      minIdle: 5
+      type: com.alibaba.druid.pool.DruidDataSource
+      isDefault: true
+
+#jap:
+#  enable: true
+
+
+mongo:
+  host: 127.0.0.1
+  port: 27017
+  database: live_broadcast
+  password:
+  username:
+  authenticationDatabase:
+  connectionPerHost: 5

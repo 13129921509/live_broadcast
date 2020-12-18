@@ -1,5 +1,8 @@
 package com.cai.live.anchor.controller
 
+import com.cai.live.anchor.service.AnchorService
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
@@ -13,29 +16,13 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/v1/anchor/")
 class AnchorController {
 
+    @Autowired
+    AnchorService anchorService
+
     @PostMapping("/multiUpload")
     @ResponseBody
     String multiUpload(HttpServletRequest request) {
         List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
-        String filePath = "/Users/itinypocket/workspace/temp/";
-        for (int i = 0; i < files.size(); i++) {
-            MultipartFile file = files.get(i);
-            if (file.isEmpty()) {
-                return "上传第" + (i++) + "个文件失败";
-            }
-            String fileName = file.getOriginalFilename();
-
-            File dest = new File(filePath + fileName);
-            try {
-                file.transferTo(dest);
-                println("第" + (i + 1) + "个文件上传成功");
-            } catch (IOException e) {
-                println(e.toString(), e);
-                return "上传第" + (i++) + "个文件失败";
-            }
-        }
-
-        return "上传成功";
-
+        return anchorService.multiUpload(files)
     }
 }

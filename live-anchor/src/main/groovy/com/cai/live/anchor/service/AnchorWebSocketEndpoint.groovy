@@ -40,7 +40,8 @@ class AnchorWebSocketEndpoint extends CustomerEndpoint{
 
     @OnError
     void onError(Session session, Throwable throwable) {
-
+        println throwable.toString()
+        throw throwable
     }
 
     @OnOpen
